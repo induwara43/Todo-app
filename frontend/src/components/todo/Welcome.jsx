@@ -1,6 +1,5 @@
 import { useParams, Link } from "react-router-dom";
 import { useAuth } from "./security/AuthContext";
-import axios from 'axios'
 
 export default function Welcome() {
 

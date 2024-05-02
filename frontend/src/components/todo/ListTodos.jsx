@@ -1,27 +1,47 @@
 import { useEffect, useState } from 'react';
 import { Table } from 'react-bootstrap';
-import { retrieveAllTodosForUser } from './api/TodoApiService';
+import { deleteTodoApi, retrieveAllTodosForUserApi } from './api/TodoApiService';
+import { useAuth } from './security/AuthContext';
 
 export default function ListTodos() {
 
     const [todos,setTodos] = useState([])
+    const [message,setMessage] = useState(null)
+    const authContext = useAuth()
+    const username = authContext.username
 
     useEffect (
-        ()=>refreshTodos(),[]
+        ()=>refreshTodos()
     )
 
     function refreshTodos(){
-        retrieveAllTodosForUser('admin')
+        retrieveAllTodosForUserApi(username)
             .then(response=>{
                 setTodos(response.data)
             })
             .catch(error=>console.log(error))
+    }
+    function deleteTodo(id){
+        const isConfirmed = window.confirm("Are you sure you want to delete this todo?");
+        if (isConfirmed) {
+            console.log("Delete confirmed for ID:", id);
+            deleteTodoApi(username,id)
+                .then(
+                    ()=>{
+                        refreshTodos()
+                        setMessage("Delete Succesful")
+                    }
+                )
+        } else {
+            console.log("Delete canceled for ID:", id);
+        }
     }
 
     return (
         <div className="container">
             <h1 className="mb-5">You have To Do!</h1>
             <div>
+            {message && <div className='alert alert-warning'>{message}</div>}
                 <Table>
                     <thead>
                         <tr>
@@ -37,6 +57,7 @@ export default function ListTodos() {
                                     <td>{todo.description}</td>
                                     <td>{todo.complete.toString()}</td>
                                     <td>{todo.targetDate.toString()}</td>
+                                    <td><button className='btn btn-danger' onClick={()=>deleteTodo(todo.id)}>Delete</button></td>
                                 </tr>
                             )
                         )}
