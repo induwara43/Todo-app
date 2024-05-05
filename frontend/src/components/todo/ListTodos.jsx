@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Table } from 'react-bootstrap';
 import { deleteTodoApi, retrieveAllTodosForUserApi } from './api/TodoApiService';
 import { useAuth } from './security/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 export default function ListTodos() {
 
@@ -9,6 +10,7 @@ export default function ListTodos() {
     const [message,setMessage] = useState(null)
     const authContext = useAuth()
     const username = authContext.username
+    const navigate = useNavigate()
 
     useEffect (
         ()=>refreshTodos()
@@ -36,6 +38,9 @@ export default function ListTodos() {
             console.log("Delete canceled for ID:", id);
         }
     }
+    function editTodo(id){
+        navigate(`/todo/${id}`)
+    }
 
     return (
         <div className="container">
@@ -57,7 +62,7 @@ export default function ListTodos() {
                                     <td>{todo.description}</td>
                                     <td>{todo.complete.toString()}</td>
                                     <td>{todo.targetDate.toString()}</td>
-                                    <td><button className='btn btn-danger' onClick={()=>deleteTodo(todo.id)}>Delete</button></td>
+                                    <td><button className='btn btn-primary m-1' onClick={()=>editTodo(todo.id)}>Edit</button><button className='btn btn-danger' onClick={()=>deleteTodo(todo.id)}>Delete</button></td>
                                 </tr>
                             )
                         )}
