@@ -11,7 +11,7 @@ export default function Header() {
    
     return (
         <Navbar className="border-bottom border-light border-5 mb-5 p-2" expand="lg">
-            <Navbar.Brand className="ms-2 fs-2 fw-bold text-black">in28minutes</Navbar.Brand>
+            <Navbar.Brand className="ms-2 fs-2 fw-bold text-black">TODO APP</Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse>
                 <Nav className="navbar-nav">

@@ -23,6 +23,7 @@ export default function ListTodos() {
             })
             .catch(error=>console.log(error))
     }
+
     function deleteTodo(id){
         const isConfirmed = window.confirm("Are you sure you want to delete this todo?");
         if (isConfirmed) {
@@ -38,15 +39,20 @@ export default function ListTodos() {
             console.log("Delete canceled for ID:", id);
         }
     }
+
     function editTodo(id){
         navigate(`/todo/${id}`)
+    }
+
+    function addTodo(){
+        navigate(`/todo/-1`)
     }
 
     return (
         <div className="container">
             <h1 className="mb-5">You have To Do!</h1>
             <div>
-            {message && <div className='alert alert-warning'>{message}</div>}
+            {message && <div className='alert alert-success'>{message}</div>}
                 <Table>
                     <thead>
                         <tr>
@@ -68,6 +74,9 @@ export default function ListTodos() {
                         )}
                     </tbody>
                 </Table>
+                <div>
+                    <button className='btn btn-primary' onClick={addTodo}>Add New Todo</button>
+                </div>
             </div>
         </div>
     );
