@@ -9,8 +9,8 @@ export default function Login() {
     const navigate = useNavigate()
     const authContext = useAuth()
 
-    function handleLogin() {
-        if (authContext.login(username,password)) {
+    async function handleLogin() {
+        if (await authContext.login(username,password)) {
             navigate(`/welcome/${username}`);
         } else {
             setshowError(true);

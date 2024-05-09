@@ -1,2 +1,3 @@
-package com.example.backend.jwt;public record JwtResponse() {
-}
+package com.example.backend.jwt;
+
+record JwtResponse(String token){}
