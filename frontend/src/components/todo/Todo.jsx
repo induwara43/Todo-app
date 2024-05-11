@@ -30,7 +30,6 @@ export default function Todo(){
     }
 
     function onSubmit(values){
-        console.log(values)
         const todo = {
             id:id,
             username:username,

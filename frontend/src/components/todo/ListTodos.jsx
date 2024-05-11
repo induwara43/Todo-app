@@ -27,7 +27,6 @@ export default function ListTodos() {
     function deleteTodo(id){
         const isConfirmed = window.confirm("Are you sure you want to delete this todo?");
         if (isConfirmed) {
-            console.log("Delete confirmed for ID:", id);
             deleteTodoApi(username,id)
                 .then(
                     ()=>{
@@ -35,8 +34,6 @@ export default function ListTodos() {
                         setMessage("Delete Succesful")
                     }
                 )
-        } else {
-            console.log("Delete canceled for ID:", id);
         }
     }
 
